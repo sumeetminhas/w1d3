@@ -31,23 +31,31 @@ function calculateSalesTax(salesData, taxRates) {
     var companyProvince = companyObject["province"];
     var companySalesArray = companyObject["sales"];
     var companySalesTotal = 0;
+    var companyTaxTotal = 0;
 
-    var outputObject = {};
     for (var j = 0; j < companySalesArray.length; j++) {
-      var character = companySalesArray[j];
       companySalesTotal = companySalesTotal + companySalesArray[j];
-
-
-       if (outputObject[character]) {
-        temp = outputObject[character]
-        outputObject[character] = temp + 1;
-       } else {
-        outputObject[character] = 1;
-       }
+      companyTaxTotal = taxRates[companyProvince] * companySalesTotal;
     }
-    console.log(outputObject);
-  }
-}
+    if(totalSalesData.hasOwnProperty(companyName)){
+
+      // var existingTotal = totalSalesData[companyName];
+      // var grandTotal = existingTotal + companySalesTotal;
+      // totalSalesData[companyName] = grandTotal;
+
+      totalSalesData[companyName].salesTotal +=  companySalesTotal;
+      totalSalesData[companyName].taxTotal += companyTaxTotal;
+    } //if condition after inner for loop
+    else{
+      totalSalesData[companyName] = {};
+      totalSalesData[companyName].salesTotal = companySalesTotal;
+      totalSalesData[companyName].taxTotal = companyTaxTotal;
+    } //else part
+  } ///the outer for loop
+  console.log(totalSalesData);
+} //function calculateSalesTax ends here
+
+
 
 var results = calculateSalesTax(companySalesData, salesTaxRates);
 

@@ -6,9 +6,7 @@ function countLetters(inputString) {
     if (outputObject[character]) {
       temp = outputObject[character]
       outputObject[character] = temp + 1;
-    } else if (character === ' '){
-      break;
-    } else {
+    } else if {
       outputObject[character] = 1;
     }
   }
